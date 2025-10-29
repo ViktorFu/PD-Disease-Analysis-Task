@@ -1,0 +1,87 @@
+{
+    "General": [
+        "lns",
+        "DVS_LNS",
+        "MODBNT",
+        "DVS_BNT",
+        "PCTL_BNT"
+    ],
+    "Processing Speed & Executive Function": [
+        "SDMTOTAL",
+        "DVT_SDM",
+        "DVSD_SDM",
+        "TMT_A",
+        "TMT_B",
+        "DVZ_TMTA",
+        "DVZ_TMTB"
+    ],
+    "Semantic Fluency": [
+        "VLTANIM",
+        "DVT_SFTANIM",
+        "DVS_SFTANIM"
+    ],
+    "Cognitive Diagnosis": [
+        "MCI_testscores",
+        "cogstate"
+    ],
+    "Daily Living": [
+        "MSEADLG"
+    ],
+    "Behavioral Symptoms": [
+        "quip_any",
+        "quip_walk"
+    ],
+    "Sleep": [
+        "ess",
+        "rem"
+    ],
+    "Mood": [
+        "gds",
+        "stai",
+        "stai_state",
+        "stai_trait"
+    ],
+    "Other Clinical Measures": [
+        "orthostasis",
+        "NP1DPRS"
+    ],
+    "Biomarkers": [
+        "abeta",
+        "tau",
+        "ptau",
+        "urate",
+        "COHORT",
+        "age",
+        "fampd",
+        "age_datscan"
+    ],
+    "Olfactory (Smell) Tests": [
+        "upsit",
+        "upsit_pctl",
+        "upsit_pctl15"
+    ],
+    "Cognitive Assessments": [
+        "moca",
+        "bjlot",
+        "DVS_JLO_MSSA",
+        "DVS_JLO_MSSAE"
+    ],
+    "Memory Tests (HVLT, DVT)": [
+        "clockdraw",
+        "hvlt_discrimination",
+        "hvlt_immediaterecall",
+        "hvlt_retention",
+        "HVLTFPRL",
+        "HVLTRDLY",
+        "HVLTREC",
+        "DVT_TOTAL_RECALL",
+        "DVT_DELAYED_RECALL",
+        "DVT_RETENTION",
+        "DVT_RECOG_DISC_INDEX"
+    ],
+    "Verbal Fluency & Language": [
+        "lexical",
+        "DVT_FAS",
+        "DVS_FAS"
+    ]
+}
