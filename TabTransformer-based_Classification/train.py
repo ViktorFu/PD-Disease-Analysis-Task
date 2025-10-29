@@ -11,12 +11,12 @@ from sklearn.model_selection import train_test_split
 from tab_transformer_pytorch import TabTransformer
 
 # --- 1. Configuration & Reproducibility ---
-EPOCHS = 10
+EPOCHS = 200
 BATCH_SIZE = 64
 LEARNING_RATE = 1e-4
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 MODEL_NAME = 'tab_transformer_model.pt'
-SEED = 24
+SEED = 42
 
 def set_seed(seed):
     """Sets random seeds for reproducibility."""
