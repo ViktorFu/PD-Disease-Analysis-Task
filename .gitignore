@@ -1,0 +1,48 @@
+# =========================================
+# Python & IDE
+# =========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.vscode/
+.idea/
+
+# =========================================
+# Environments
+# =========================================
+.env
+.venv
+env/
+venv/
+
+# =========================================
+# Model & Large Files
+# =========================================
+# Ignore all model files
+*.pt
+*.joblib
+*.h5
+*.onnx
+
+# =========================================
+# Generated Outputs
+# =========================================
+# Ignore all generated images and logs
+*.png
+*.jpg
+*.jpeg
+wandb/
+
+# =========================================
+# Data files
+# =========================================
+# Ignore generated data, but keep original data.
+# This assumes your original data is in 'data/' and not too large.
+TabTransformer-based_Classification/data/
+# If you also want to ignore the root-level 'imputed' data files:
+# data/imputed_*.csv
+
+# =========================================
+# System Files
+# =========================================
+.DS_Store
