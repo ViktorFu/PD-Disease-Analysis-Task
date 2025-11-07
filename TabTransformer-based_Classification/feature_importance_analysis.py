@@ -8,6 +8,27 @@ import torch
 from pathlib import Path
 from tab_transformer_pytorch import TabTransformer
 from scipy.special import softmax
+import warnings
+from sklearn.exceptions import ConvergenceWarning
+
+# Suppress ConvergenceWarning from scikit-learn, which can be noisy with KernelExplainer
+warnings.filterwarnings("ignore", category=ConvergenceWarning)
+
+# --- NEW: Model Wrapper for DeepExplainer ---
+# This wrapper makes the model compatible with SHAP's DeepExplainer by accepting a single
+# concatenated tensor and splitting it internally into categorical and continuous parts.
+class ModelWrapper(torch.nn.Module):
+    def __init__(self, model, cat_feature_count):
+        super().__init__()
+        self.model = model
+        self.cat_feature_count = cat_feature_count
+
+    def forward(self, x):
+        # x is a single tensor where categorical and continuous features are concatenated.
+        # We split them back into two tensors here.
+        x_categ = x[:, :self.cat_feature_count].long()
+        x_cont = x[:, self.cat_feature_count:]
+        return self.model(x_categ, x_cont)
 
 SEED = 42
 
@@ -71,6 +92,9 @@ def analyze_feature_importance():
     cat_features = preprocessors['categorical_features']
     num_features = preprocessors['numerical_features']
     feature_names = cat_features + num_features
+    
+    # --- NEW: Wrap the model for SHAP ---
+    wrapped_model = ModelWrapper(model, len(cat_features))
 
     # We use the original (unscaled, un-encoded) data and preprocess on the fly
     # This makes the SHAP plot more interpretable
@@ -117,10 +141,12 @@ def analyze_feature_importance():
     # --- 7. Bar plot (native SHAP) ---
     print("\n--- Saving SHAP summary bar plot ---")
     plt.figure()
+    class_names_for_plot = [f"Class {i}" for i in range(len(shap_values))]
     shap.summary_plot(
         shap_values,
         X_eval,
         plot_type="bar",
+        class_names=class_names_for_plot,
         show=False,
         max_display=20
     )
@@ -130,7 +156,7 @@ def analyze_feature_importance():
     plt.close()
     print(f"Saved bar plot to {bar_plot_path}")
 
-    # --- 8. Global importance for correlation heatmap ---
+    # --- 9. Global importance for correlation heatmap ---
     print("\n--- Computing global feature importance vector ---")
     global_importance = compute_global_importance(shap_values)
 
@@ -141,7 +167,7 @@ def analyze_feature_importance():
 
     top_20_features = feature_importance_df.head(20)['feature'].tolist()
 
-    # --- 9. Correlation heatmap ---
+    # --- 10. Correlation heatmap ---
     print("\n--- Saving correlation heatmap for top 20 features ---")
     corr_matrix = df_original[top_20_features].corr()
 

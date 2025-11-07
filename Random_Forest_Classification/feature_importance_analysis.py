@@ -80,6 +80,10 @@ def analyze_feature_importance():
 
     rf_model = best_model_pipeline.named_steps["classifier"]
 
+    # Create explicit class names for the plot legend to ensure sorted order.
+    # This maps the model's internal classes (e.g., 1, 2, 3, 4) to "Class 0", "Class 1", etc.
+    class_names_for_plot = [f"Class {i}" for i in range(len(rf_model.classes_))]
+
     # --- Sample for SHAP ---
     print("Sampling background and evaluation sets...")
     X_background = shap.sample(X, 100, random_state=SEED)
@@ -97,6 +101,7 @@ def analyze_feature_importance():
         shap_values,
         X_eval,
         plot_type="bar",
+        class_names=class_names_for_plot,
         show=False,
         max_display=20
     )

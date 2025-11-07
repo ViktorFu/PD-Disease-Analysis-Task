@@ -5,7 +5,7 @@ import joblib
 from pathlib import Path
 import numpy as np
 import random
-import wandb
+# import wandb
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 from sklearn.model_selection import train_test_split
 from tab_transformer_pytorch import TabTransformer
@@ -92,16 +92,16 @@ def train_model():
     model = TabTransformer(**model_config).to(DEVICE)
 
     # --- WANDB SETUP ---
-    full_config = {
-        **model_config,
-        **{'epochs': EPOCHS, 'lr': LEARNING_RATE, 'batch_size': BATCH_SIZE, 'seed': SEED}
-    }
+    # full_config = {
+    #     **model_config,
+    #     **{'epochs': EPOCHS, 'lr': LEARNING_RATE, 'batch_size': BATCH_SIZE, 'seed': SEED}
+    # }
 
-    run = wandb.init(
-        project="PD prediction task",
-        entity="ld77-universit-paris-dauphine-psl",
-        config=full_config
-    )
+    # run = wandb.init(
+    #     project="PD prediction task",
+    #     entity="ld77-universit-paris-dauphine-psl",
+    #     config=full_config
+    # )
 
     print(
         f"Model initialized with "
@@ -166,15 +166,15 @@ def train_model():
         )
 
         # --- WANDB LOGGING ---
-        wandb.log({
-            "epoch": epoch,
-            "train_loss": train_loss,
-            "train_accuracy": train_acc,
-            "train_f1": train_f1,
-            "val_loss": val_loss,
-            "val_accuracy": val_acc,
-            "val_f1": val_f1
-        })
+        # wandb.log({
+        #     "epoch": epoch,
+        #     "train_loss": train_loss,
+        #     "train_accuracy": train_acc,
+        #     "train_f1": train_f1,
+        #     "val_loss": val_loss,
+        #     "val_accuracy": val_acc,
+        #     "val_f1": val_f1
+        # })
 
         # --- Checkpointing best model ---
         if val_f1 > best_val_f1:
@@ -197,8 +197,8 @@ def train_model():
                 }
             }, model_path)
 
-            wandb.summary['best_val_f1'] = best_val_f1
-            wandb.summary['best_epoch'] = epoch
+            # wandb.summary['best_val_f1'] = best_val_f1
+            # wandb.summary['best_epoch'] = epoch
 
     print("\n--- Training Completed ---")
     print(f"Best validation F1-score: {best_val_f1:.4f}")
@@ -238,10 +238,10 @@ def train_model():
     ))
 
     # Log final test metrics to wandb summary for easy comparison
-    wandb.summary['test_acc'] = test_acc
-    wandb.summary['test_f1'] = test_f1
+    # wandb.summary['test_acc'] = test_acc
+    # wandb.summary['test_f1'] = test_f1
 
-    wandb.finish()
+    # wandb.finish()
 
 
 if __name__ == '__main__':
