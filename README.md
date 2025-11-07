@@ -11,7 +11,6 @@ The classification label is located in the column “COHORT”, which includes t
 
 Modeling Options
 ----------------
-You may choose one of the following two modeling approaches:
 
 1. **Random Forest Classification** with feature importance analysis.  
 2. **TabTransformer-based Classification** using the implementation available at:  
